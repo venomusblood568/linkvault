@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "LinkVault",
+  "version": "1.0",
+  "description": "Save links with titles",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "icons": {
+    "48": "/origami.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "/origami.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
