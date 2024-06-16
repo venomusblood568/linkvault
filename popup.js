@@ -37,20 +37,22 @@ function displayLinks() {
       titleSpan.textContent = item.title;
       listItem.appendChild(titleSpan);
 
+      // Open button
       const openButton = document.createElement('button');
       openButton.className = 'icon-button';
       const openImg = document.createElement('img');
-      openImg.src = '/link.png';
+      openImg.src = 'link.png'; // Correct path to the image file
       openButton.appendChild(openImg);
       openButton.addEventListener('click', function() {
         window.open(item.link, '_blank');
       });
       listItem.appendChild(openButton);
 
+      // Delete button
       const deleteButton = document.createElement('button');
       deleteButton.className = 'icon-button';
       const deleteImg = document.createElement('img');
-      deleteImg.src = '/delete.png';
+      deleteImg.src = 'delete.png'; // Correct path to the image file
       deleteButton.appendChild(deleteImg);
       deleteButton.addEventListener('click', function() {
         chrome.storage.sync.get({ links: [] }, function(data) {
@@ -63,8 +65,28 @@ function displayLinks() {
       });
       listItem.appendChild(deleteButton);
 
+      // Copy button
+      const copyButton = document.createElement('button');
+      copyButton.className = 'icon-button';
+      const copyImg = document.createElement('img');
+      copyImg.src = 'share.png'; // Correct path to the image file
+      copyButton.appendChild(copyImg);
+      copyButton.addEventListener('click', function() {
+        copyToClipboard(item.title, item.link);
+      });
+      listItem.appendChild(copyButton);
+
       linkList.appendChild(listItem);
     });
+  });
+}
+
+function copyToClipboard(title, link) {
+  const textToCopy = `Title: ${title}\nLink: ${link}`;
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    alert('Copied to clipboard!');
+  }).catch(err => {
+    console.error('Could not copy text: ', err);
   });
 }
 
